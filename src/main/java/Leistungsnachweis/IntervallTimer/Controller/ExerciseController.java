@@ -1,20 +1,17 @@
 package Leistungsnachweis.IntervallTimer.Controller;
 
-import Leistungsnachweis.IntervallTimer.Data.Exercise;
+import Leistungsnachweis.IntervallTimer.DataTransfer.ExerciseDto;
 import Leistungsnachweis.IntervallTimer.Logic.ExerciseLogic;
 import Leistungsnachweis.IntervallTimer.Response.Base.BaseControllerResponse;
 import Leistungsnachweis.IntervallTimer.Response.ResponseType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(path = "exercise")
-public class ExerciseController implements IBaseController<Exercise> {
+public class ExerciseController implements IBaseController<ExerciseDto> {
     private final ExerciseLogic exerciseLogic;
 
     @Autowired
@@ -22,14 +19,14 @@ public class ExerciseController implements IBaseController<Exercise> {
         this.exerciseLogic = exerciseLogic;
     }
 
-    @PostMapping("exercises/{id}")
-    public BaseControllerResponse get(@PathParam("id") long id) {
+    @PostMapping("get/{id}")
+    public BaseControllerResponse<ExerciseDto> get(@PathParam("id") long id) {
         return null;
     }
 
-    @GetMapping("allExercises")
-    public BaseControllerResponse getAll() {
-        BaseControllerResponse response = new BaseControllerResponse();
+    @GetMapping("getAll")
+    public BaseControllerResponse<ExerciseDto> getAll() {
+        BaseControllerResponse<ExerciseDto> response = new BaseControllerResponse<>();
         try{
             response.listResponse = this.exerciseLogic.getAll();
         }
@@ -38,15 +35,21 @@ public class ExerciseController implements IBaseController<Exercise> {
             response.responseType = ResponseType.FAIL;
         }
         finally{
-            return response;
+            if(response.responseType == ResponseType.INITIALIZED) {
+                response.responseType = ResponseType.SUCCESSFUL;
+                response.message = "Erfolgreich geladen";
+            }
         }
+        return response;
     }
 
-    public BaseControllerResponse save(Exercise newExercise) {
+    @PostMapping("save/{id}")
+    public BaseControllerResponse<ExerciseDto> save(ExerciseDto newExerciseDto) {
         return null;
     }
 
-    public BaseControllerResponse delete(long id) {
+    @DeleteMapping("delete/{id}")
+    public BaseControllerResponse<ExerciseDto> delete(@PathParam("id") long id) {
         return null;
     }
 }

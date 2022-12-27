@@ -1,8 +1,6 @@
-package Leistungsnachweis.IntervallTimer.Data;
+package Leistungsnachweis.IntervallTimer.DataTransfer;
 
-import jdk.jfr.Timespan;
-
-public class Exercise {
+public class ExerciseDto {
     private long id;
     private String name;
 
@@ -12,10 +10,10 @@ public class Exercise {
     private int startCountdown;
     // private String ringTone;
 
-    public Exercise() {
+    public ExerciseDto() {
     }
 
-    public Exercise(String name, int repCount, int lapTime, int lapBreakTime, int startCountdown) {
+    public ExerciseDto(String name, int repCount, int lapTime, int lapBreakTime, int startCountdown) {
         this.name = name;
         this.repCount = repCount;
         this.lapTime = lapTime;
@@ -23,7 +21,7 @@ public class Exercise {
         this.startCountdown = startCountdown;
     }
 
-    public Exercise(long id, String name, int repCount, int lapTime, int lapBreakTime, int startCountdown) {
+    public ExerciseDto(long id, String name, int repCount, int lapTime, int lapBreakTime, int startCountdown) {
         this.id = id;
         this.name = name;
         this.repCount = repCount;

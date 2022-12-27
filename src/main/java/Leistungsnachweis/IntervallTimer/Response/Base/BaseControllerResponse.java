@@ -1,7 +1,6 @@
 package Leistungsnachweis.IntervallTimer.Response.Base;
 
 
-import Leistungsnachweis.IntervallTimer.Data.Exercise;
 import Leistungsnachweis.IntervallTimer.Response.ResponseType;
 
 import java.util.List;
