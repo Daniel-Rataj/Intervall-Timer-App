@@ -43,9 +43,23 @@ public class ExerciseController implements IBaseController<ExerciseDto> {
         return response;
     }
 
-    @PostMapping("save/{id}")
-    public BaseControllerResponse<ExerciseDto> save(ExerciseDto newExerciseDto) {
-        return null;
+    @PostMapping("newExercise")
+    public BaseControllerResponse<ExerciseDto> save(@RequestBody ExerciseDto exerciseDto) {
+        BaseControllerResponse<ExerciseDto> response = new BaseControllerResponse<>();
+        try{
+            response.singleResponse = this.exerciseLogic.save(exerciseDto);
+        }
+        catch(Exception e) {
+            response.message = e.getMessage();
+            response.responseType = ResponseType.FAIL;
+        }
+        finally{
+            if(response.responseType == ResponseType.INITIALIZED) {
+                response.responseType = ResponseType.SUCCESSFUL;
+                response.message = "Erfolgreich geladen";
+            }
+        }
+        return response;
     }
 
     @DeleteMapping("delete/{id}")
