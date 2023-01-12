@@ -82,13 +82,6 @@ public class ExerciseLogic implements IBaseLogic<ExerciseDto> {
     }
 
     public List<ExerciseDto> getAll() {
-        /* TODO: Für Testzwecke wird hier hardcoded eine Liste zurückgegeben
-        ArrayList<ExerciseDto> testListe = new ArrayList<>();
-
-        testListe.add(new ExerciseDto(0, "test 1", 2, 5, 2, 5));
-        testListe.add(new ExerciseDto(1, "test 2", 2, 30, 10, 5));
-        testListe.add(new ExerciseDto(2, "test 3", 0,0,0, 0));
-        return testListe;*/
         Iterable<Exercise> allExercises = this.exerciseRepository.findAll();
         return this.convertExercisesToDtoList(allExercises);
     }

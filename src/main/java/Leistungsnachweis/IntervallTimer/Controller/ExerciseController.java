@@ -56,14 +56,28 @@ public class ExerciseController implements IBaseController<ExerciseDto> {
         finally{
             if(response.responseType == ResponseType.INITIALIZED) {
                 response.responseType = ResponseType.SUCCESSFUL;
-                response.message = "Erfolgreich geladen";
+                response.message = "Erfolgreich gespeichert";
             }
         }
         return response;
     }
 
-    @DeleteMapping("delete/{id}")
-    public BaseControllerResponse<ExerciseDto> delete(@PathParam("id") long id) {
-        return null;
+    @PostMapping("delete")
+    public BaseControllerResponse<ExerciseDto> delete(@RequestBody long id) {
+        BaseControllerResponse<ExerciseDto> response = new BaseControllerResponse<>();
+        try{
+            this.exerciseLogic.delete(id);
+        }
+        catch(Exception e) {
+            response.message = e.getMessage();
+            response.responseType = ResponseType.FAIL;
+        }
+        finally{
+            if(response.responseType == ResponseType.INITIALIZED) {
+                response.responseType = ResponseType.SUCCESSFUL;
+                response.message = "Erfolgreich gelöscht";
+            }
+        }
+        return response;
     }
 }
